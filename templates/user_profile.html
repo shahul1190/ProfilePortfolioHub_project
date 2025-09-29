@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+ {% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+</head>
+<body>
+
+{% block content %}
+<!-- Bootstrap Icons + Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    padding-top: 70px;
+  }
+
+  .hero-section {
+    min-height: 600px;
+    background-image: url('{% static "images/tb.jpg" %}');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white;
+    text-align: center;
+  }
+
+  .hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-section .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+  }
+
+  .glass-nav {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+  }
+
+  .btn {
+    transition: all 0.3s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .animate-fade {
+    opacity: 0;
+    animation: fadeIn 1.5s forwards;
+  }
+
+  .animate-slide {
+    transform: translateY(30px);
+    opacity: 0;
+    animation: slideUp 1s forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+</style>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">MyProfile</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+            <img src="{{ profile.profile_picture.url }}" class="rounded-circle me-2" width="35">
+            {{ profile.user }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end text-center">
+            <li><a class="dropdown-item btn btn-outline-success btn-sm my-1" href="{% url 'edit_profile' %}"><i class="bi bi-pencil-square"></i> Edit Profile</a></li>
+             <li><a class="dropdown-item btn btn-outline-success btn-sm my-1" href="{% url 'project_detail' %}"><i class="bi bi-folder-fill"></i>Create Portfolio</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item btn btn-danger btn-sm my-1" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Header -->
+<header class="hero-section d-flex align-items-center justify-content-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold animate-fade">HELLO</h1>
+    <h1 class="display-4 fw-bold animate-fade">WELCOME</h1>
+    <p class="lead animate-fade">THIS IS PROFILE PAGE</p>
+  </div>
+</header>
+
+<!-- Profile Info -->
+<section class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <!-- Profile Card -->
+      <div class="glass-card mb-4 animate-slide">
+        <img src="{{ profile.profile_picture.url }}" class="rounded-circle mb-3" width="120">
+        <h3>{{ profile.user }}</h3>
+        <p><i class="bi bi-geo-alt-fill"></i> {{ profile.place }}</p>
+        <p><i class="bi bi-person-lines-fill"></i> {{ profile.bio }}</p>
+      </div>
+
+      <!-- User Info -->
+      <div class="glass-card mb-4 animate-slide">
+        <h4 class="text-primary fw-bold mb-3"><i class="bi bi-person-circle"></i> User Information</h4>
+        <div class="row justify-content-center text-start">
+          <div class="col-md-6"><strong>Username:</strong> {{ profile.user }}</div>
+          <div class="col-md-6"><strong>Email:</strong> {{ profile.user.email }}</div>
+          <div class="col-md-6"><strong>First Name:</strong> {{ profile.user.first_name }}</div>
+          <div class="col-md-6"><strong>Last Name:</strong> {{ profile.user.last_name }}</div>
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="glass-card mb-4 animate-slide">
+        <h4 class="text-success fw-bold mb-3"><i class="bi bi-telephone-fill"></i> Contact Information</h4>
+        <div class="row justify-content-center text-start">
+          <div class="col-md-12"><strong>Address:</strong> {{ profile.address }}</div>
+          <div class="col-md-4"><strong>City:</strong> {{ profile.city }}</div>
+          <div class="col-md-4"><strong>Country:</strong> {{ profile.country }}</div>
+          <div class="col-md-4"><strong>Postal Code:</strong> {{ profile.postal_code }}</div>
+          <div class="col-md-6"><strong>Phone:</strong> {{ profile.phone }}</div>
+        </div>
+      </div>
+
+      <!-- Home Button -->
+<div class="text-center mt-5 animate-slide">
+  <p class="lead fw-semibold">
+    Ready to showcase your work? Build your portfolio and let your projects speak for your talent
+    <i class="bi bi-arrow-right-circle-fill text-primary ms-2"></i>
+  </p>
+  <a href="{% url 'project_detail' %}" class="btn btn-primary btn-lg d-inline-flex align-items-center gap-2 shadow-sm mt-2">
+    <i class="bi bi-folder-fill"></i> Portfolio
+  </a>
+</div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JS Animations -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const fadeEls = document.querySelectorAll(".animate-fade");
+    const slideEls = document.querySelectorAll(".animate-slide");
+
+    fadeEls.forEach((el, i) => {
+      setTimeout(() => el.classList.add("fade-in"), i * 200);
+    });
+
+    slideEls.forEach((el, i) => {
+      setTimeout(() => el.classList.add("slide-up"), i * 300);
+    });
+
+    const navbar = document.querySelector(".glass-nav");
+    window.addEventListener("scroll", () => {
+      navbar.classList.toggle("shadow", window.scrollY > 50);
+    });
+  });
+</script>
+{% endblock %}
+</body>
+
+</html>

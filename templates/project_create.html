@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 style="margin-left: 430px;">Create Portfolio</h1>
+  <form id="myform" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Portfolio</button>
+
+  </form>
+
+
+
+{% endblock %}
+
+

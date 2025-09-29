@@ -1,0 +1,109 @@
+<!doctype html>
+{% load static %}
+
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HOME PAGE</title>
+
+    <!-- Fonts and Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&amp;subset=devanagari,latin-ext" rel="stylesheet">
+    <link rel="shortcut icon" type="image/icon" href="{% static 'assets/logo/favicon.png' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootsnav.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styl.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="top-area">
+        <div class="header-area">
+            <nav class="navbar navbar-default bootsnav navbar-fixed dark no-background">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand">WELCOME</a>
+                    </div>
+                    <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                            <li><a href="#home">HOME</a></li>
+                            <li><a href="#" onclick="visitProfile()">PROFILE</a></li>
+                            <li><a href="{% url 'logout' %}" onclick="localStorage.removeItem('visitedProfile')">LOGOUT</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="clearfix"></div>
+    </header>
+
+    <!-- Welcome Section -->
+    <section id="welcome-hero" class="welcome-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="header-text">
+                        <h2>HII <span>,</span> WELLCOME <br> TO<br> HOME PAGE <span>.</span></h2>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll Top -->
+    <div id="scroll-Top">
+        <div class="return-to-top">
+            <i class="fa fa-angle-up" id="scroll-top"></i>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/jquery.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootsnav.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
+    <script src="{% static 'assets/js/progressbar.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.appear.js' %}"></script>
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+    <!-- Auth and Navigation Logic -->
+    <input type="hidden" id="is-logged-in" value="{{ request.user.is_authenticated }}">
+    <script>
+        const isLoggedIn = document.getElementById('is-logged-in').value === 'True';
+        const profileUrl = "{% url 'user_profile' %}";
+        const portfolioUrl = "{% url 'project_detail' %}";
+
+        if (!isLoggedIn) {
+            alert("Please login to continue");
+            window.location.href = "{% url 'login' %}";
+        }
+
+        function visitProfile() {
+            localStorage.setItem('visitedProfile', 'true');
+            window.location.href = profileUrl;
+        }
+
+        function goToPortfolio() {
+            const visited = localStorage.getItem('visitedProfile');
+            if (!visited) {
+                alert("Please visit your profile before accessing the portfolio.");
+                return;
+            }
+            window.location.href = portfolioUrl;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>c</h1>
+  <p>{{ project.description }}</p>
+  <img src="{{ project.image.url }}" alt="Project Image">
+  <a href="{{ project.link }}">ViewhhhhhLive</a>
+
+  <h4>{{ project.skillsone }}</h4>
+  <p>{{ project.descriptionone }}</p>
+
+  <h4>{{ project.skillstwo }}</h4>
+  <p>{{ project.descriptiontwo }}</p>
+
+  <h4>{{ project.skillsthree }}</h4>
+  <p>{{ project.descriptionthree }}</p>
+
+  <h4>{{ project.skillsfour }}</h4>
+  <p>{{ project.descriptionfour }}</p>
+{% endblock %}

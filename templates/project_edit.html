@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1 style="margin-left: 430px;">Edit Portfolio</h1>
+
+  <form method="post" id="myform">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary">Update</button>
+
+  </form>
+
+{% endblock %}
